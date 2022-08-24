@@ -34,15 +34,19 @@ function onSubmitClick(e) {
   setTimeout(startPromise, delay, step, amount, delay);
 }
 
-function startPromise(step, amount) {
+function startPromise(step, amount, firstDelay) {
   for (let i = 0; i < amount; i += 1) {
     setTimeout(() => {
       createPromise(i, step * i)
         .then(({ position, delay }) => {
-          Notify.success(`✅ Fulfilled promise ${position} in ${delay}ms`);
+          Notify.success(
+            `✅ Fulfilled promise ${position + 1} in ${delay + firstDelay}ms`
+          );
         })
         .catch(({ position, delay }) => {
-          Notify.failure(`❌ Rejected promise ${position} in ${delay}ms`);
+          Notify.failure(
+            `❌ Rejected promise ${position + 1} in ${delay + firstDelay}ms`
+          );
         });
     }, step);
   }
